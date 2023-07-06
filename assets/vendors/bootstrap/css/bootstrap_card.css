@@ -1,0 +1,72 @@
+@media (min-width: 576px) {
+    .card-columns {
+        column-count: 1;
+    }
+}
+
+@media (min-width: 768px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 992px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+@media (min-width: 1200px) {
+    .card-columns {
+        column-count: 3;
+    }
+}
+
+.container {
+  display: block;
+  width: 100%;
+}
+.card {
+  float: left;
+  margin: 1.25rem;
+  /*setting width for each and every card element as well as -10px for removing the margin width for 5 elements*/
+  width: calc( 100% / 5 - 10px);
+}
+/*first element*/
+.container .card:first-child {
+  margin-left: 0;
+}
+/*last element of the first row*/
+.container .card:nth-child(3n) {
+  margin-right: 0;
+}
+/*first-element of the 2nd row*/
+.container .card:nth-child(3n+1) {
+  margin-left: 0;
+}
+/*last element*/
+.container .card:last-child {
+  margin-right: 0;
+}
+
+.card-body {
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    padding: 1.25rem 1.25rem 0rem;
+}
+
+
+li.card {
+  width: 250px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  text-align: center;
+}
+ul[class*="list-"] {
+    font-size: 13px!important;
+}
+
+li.card ul.list-group li.list-group-item:first-child {
+  border-top: unset;
+  padding-top: 0;
+  padding-bottom: 1.55rem;
+}
