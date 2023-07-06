@@ -40,7 +40,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: pep_system
+          ECR_REPOSITORY: lms-app
           IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
@@ -48,5 +48,5 @@ jobs:
 
       - name: Update Kubernetes deployment
         run: |
-          sed -i "s|688428951895.dkr.ecr.ap-southeast-1.amazonaws.com/pep_system:latest|688428951895.dkr.ecr.ap-southeast-1.amazonaws.com/pep_system:$IMAGE_TAG|" kubernetes/deployment.yaml
+          sed -i "s|688428951895.dkr.ecr.ap-southeast-1.amazonaws.com/lms-app:latest|688428951895.dkr.ecr.ap-southeast-1.amazonaws.com/lms-app:$IMAGE_TAG|" kubernetes/deployment.yaml
           kubectl apply -f kubernetes/deployment.yaml

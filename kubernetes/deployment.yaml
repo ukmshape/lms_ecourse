@@ -1,17 +1,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: lms-deployment
+  name: lms-app-deployment
   namespace: lms-system
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
-      app: lms
+      app: lms-app
   template:
     metadata:
       labels:
-        app: lms
+        app: lms-app
     spec:
       containers:
       - name: lms-app
@@ -25,25 +25,3 @@ spec:
           requests:
             cpu: "0.25"
             memory: "350Mi"
-        env:
-        - name: DB_HOST
-          value: "database-ukmshape.cj3gorfkfzca.ap-southeast-1.rds.amazonaws.com"
-        - name: DB_NAME
-          value: "ecourse"
-        - name: DB_USERNAME
-          value: admin
-        - name: DB_PASSWORD
-          value: ukmshapeUKMAWS  
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: lms-service
-  namespace: lms-system
-spec:
-  selector:
-    app: lms
-  ports:
-    - protocol: TCP
-      port: 80
-  type: LoadBalancer
