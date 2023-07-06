@@ -168,8 +168,8 @@ class Main extends CI_Controller {
 
 
   public function signin() {
-    //$this->template->render('main_f/signin');
-    $this->template->render('main_f/maintenance');
+    $this->template->render('main_f/signin');
+    //$this->template->render('main_f/maintenance');
   }
 
   public function test_signin() {
