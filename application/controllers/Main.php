@@ -311,7 +311,7 @@ class Main extends CI_Controller {
 
         $message = $this->load->view('templates/email_welcome', $data, true);
 
-        $this->email->from('no-reply-ecourse@ukm.edu.my', 'eCOURSE');
+        $this->email->from('malaysiaqtech@gmail.com', 'eCOURSE');
         $this->email->to($email);
         //$this->email->cc('studymc@ukm.edu.my');
         $this->email->subject('eCOURSE : Welcome to eCOURSE!');

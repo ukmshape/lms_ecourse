@@ -3,10 +3,10 @@
 
 $config = array(
 	'protocol' => 'smtp',
-	'smtp_host' => 'smtp.ukm.my',
-	'smtp_user' => 'hairani',
-	'smtp_pass' => 'nupdujhofjeadhig',
-	'smtp_port' => 25,
+	'smtp_host' => 'smtp.googlemail.com',
+	'smtp_user' => 'malaysiaqtech@gmail.com',
+	'smtp_pass' => 'oqxdqixsswcdnmao',
+	'smtp_port' => 465,
 	'crlf' => "\r\n",
 	'newline' => "\r\n"
 );
