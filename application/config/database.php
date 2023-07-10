@@ -52,12 +52,12 @@ $db['ecourse'] = array(
 
 $db['mcodlukm'] = array(
     'dsn'	=> '',
-    'hostname' => 'database-ukmshape.cj3gorfkfzca.ap-southeast-1.rds.amazonaws.com',
+    'hostname' => 'database-moodle.cj3gorfkfzca.ap-southeast-1.rds.amazonaws.com',
     'port' => 3306,
     'username' => 'admin',
     'password' => 'ukmshapeUKMAWS',
-    'database' => 'moodle',
-    'dbdriver' => 'mysqli',
+    'database' => 'odl_moodle',
+    'dbdriver' => 'pdo',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
