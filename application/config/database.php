@@ -57,7 +57,7 @@ $db['mcodlukm'] = array(
     'username' => 'admin',
     'password' => 'ukmshapeUKMAWS',
     'database' => 'ukm_moodle',
-    'dbdriver' => 'pdo',
+    'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
