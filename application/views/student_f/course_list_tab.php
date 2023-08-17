@@ -54,19 +54,19 @@
           $imgfile = $this->student_m->get_course_preview_img($row->kursusid);
 
           if($imgfile) {
-            $host_url = 'https://'.$_SERVER['HTTP_HOST']; //'http://'.$_SERVER['HTTP_HOST'];
+            $host_url = LMSPATH; //'http://'.$_SERVER['HTTP_HOST'];
             if($_SERVER['HTTP_HOST'] == "shape.ukm.my") {
-              $filepath = $host_url.'/ecourselms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+              $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
             } else {
-              $filepath = $host_url.'/lms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+              $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
             }
           }
 
           ?>
-            <a href="https://ecourse.ukm.my/lms/course/view.php?id=<?=$row->kursusid;?>"><img class="card-img-top" src="<?php echo $filepath;?>" alt="Card image cap"></a>
+            <a href="<?=LMSPATH;?>/course/view.php?id=<?=$row->kursusid;?>"><img class="card-img-top" src="<?php echo $filepath;?>" alt="Card image cap"></a>
             <div class="card-body text-center">
               <!--<h5><a href="https://ecourse.ukm.my/lms"><?php echo ($row->namakursus); ?></a></h5>-->
-              <h4 class="mt-1"><a href="https://ecourse.ukm.my/lms/course/view.php?id=<?=$row->kursusid;?>" target="_blank"><?php echo ($row->namakursus); ?></a></h4>
+              <h4 class="mt-1"><a href="<?=LMSPATH;?>/course/view.php?id=<?=$row->kursusid;?>" target="_blank"><?php echo ($row->namakursus); ?></a></h4>
               <!--<span>Healthcare &amp; Biomedical Science</span><br/>-->
             </div>
             <ul class="list-group list-group-flush">
@@ -74,12 +74,12 @@
                 <?php
                   if($row->status_enrol != NULL) {
                     if($row->status_enrol == 13) {
-                      echo '<p class="card-text"><a href="https://ecourse.ukm.my/lms/course/view.php?id='.$row->kursusid.'" class="btn button-sm green radius-xl">Complete</a></p>';
+                      echo '<p class="card-text"><a href="'.LMSPATH.'/course/view.php?id='.$row->kursusid.'" class="btn button-sm green radius-xl">Complete</a></p>';
                     } else if($row->status_enrol == 12) {
-                      echo '<p class="card-text"><a href="https://ecourse.ukm.my/lms/course/view.php?id='.$row->kursusid.'" class="btn button-sm warning radius-xl">Active</a></p>';
+                      echo '<p class="card-text"><a href="'.LMSPATH.'/course/view.php?id='.$row->kursusid.'" class="btn button-sm warning radius-xl">Active</a></p>';
                     }
                   } else {
-                    echo '<p class="card-text"><a href="https://ecourse.ukm.my/lms/course/view.php?id='.$row->kursusid.'" class="btn button-sm danger radius-xl">Inactive</a></p>';
+                    echo '<p class="card-text"><a href="'.LMSPATH.'/course/view.php?id='.$row->kursusid.'" class="btn button-sm danger radius-xl">Inactive</a></p>';
                   }
                   ?>
               </li>

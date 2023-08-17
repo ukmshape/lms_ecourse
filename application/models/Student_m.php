@@ -130,12 +130,16 @@ class Student_m extends CI_Model {
 	}
 
 	public function get_historystudorder($user_id) {
-		$query = $this->dbecourse->query("SELECT *, data_order_mc.status_app status_mc, data_order_sp.status_app status_sp, data_order_mc.create_dated dated_mc, data_order_sp.create_dated dated_sp
-							FROM `data_cart`
+
+		$query = $this->dbecourse->query("SELECT data_invoice.*, data_cart.*, data_order_mc.status_app status_mc, data_order_sp.status_app status_sp, data_order_mc.create_dated dated_mc, data_order_sp.create_dated dated_sp
+							FROM data_invoice
+							LEFT JOIN `data_cart` ON data_cart.order_id = data_invoice.order_id
 		                    LEFT JOIN `data_order_mc` ON data_cart.order_id = data_order_mc.ordermc_id
 		                    LEFT JOIN `data_order_sp` ON data_cart.order_id = data_order_sp.ordersp_id
 		                    JOIN `param_kursus` ON data_cart.idcart = param_kursus.idcart AND (data_order_mc.kursusid = param_kursus.kursusid or data_order_sp.kursusid = param_kursus.kursusid)
-							WHERE data_cart.user_id = '$user_id'
+							WHERE data_cart.user_id = '$user_id' AND
+							data_cart.user_id = data_invoice.user_id AND 
+							data_invoice.status_inv IS NOT NULL
 							GROUP BY data_cart.order_id");
 
 		return $query->result();
@@ -150,6 +154,21 @@ class Student_m extends CI_Model {
 							WHERE data_cart.user_id = '$user_id'
 							AND (data_order_mc.status_app = 3 OR data_order_sp.status_app = 3 OR (data_order_sp.status_deposit = 3 OR data_order_sp.status_payment1 = 3 OR data_order_sp.status_payment2 = 3 OR data_order_sp.status_payment3 = 3))
 							GROUP BY data_cart.order_id");
+
+		return $query->result();
+	}
+
+	public function get_bill_invoice($user_id) {
+		$query = $this->dbecourse->query("SELECT data_invoice.*, data_cart.*, data_order_mc.status_app status_mc, data_order_sp.status_app status_sp, data_order_mc.create_dated dated_mc, data_order_sp.create_dated dated_sp
+		FROM `data_invoice`
+			LEFT JOIN `data_cart` ON data_cart.order_id = data_invoice.order_id
+		LEFT JOIN `data_order_mc` ON data_cart.order_id = data_order_mc.ordermc_id
+		LEFT JOIN `data_order_sp` ON data_cart.order_id = data_order_sp.ordersp_id
+		JOIN `param_kursus` ON data_cart.idcart = param_kursus.idcart AND (data_order_mc.kursusid = param_kursus.kursusid or data_order_sp.kursusid = param_kursus.kursusid)
+		WHERE data_cart.user_id = '$user_id'
+		 AND data_cart.user_id = data_invoice.user_id
+		 AND data_invoice.status_inv = '3'
+		GROUP BY data_cart.order_id");
 
 		return $query->result();
 	}

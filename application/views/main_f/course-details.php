@@ -81,8 +81,8 @@ table tr:last-child td:last-child {
 $imgfile = $this->main_m->get_course_preview_img($mdl_courselist[0]->cid);
 
 if($imgfile) {
-  $host_url = 'http://'.$_SERVER['HTTP_HOST'];
-  $filepath = $host_url.'/lms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+  $host_url = LMSPATH;
+  $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
 }
 
 //price //

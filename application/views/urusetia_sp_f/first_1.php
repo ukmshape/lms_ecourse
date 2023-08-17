@@ -189,9 +189,9 @@ $nama = $session_ukmper['fullname'];
                                           $fileName = '';
                                           $linkacademic = DOCPATH.$detail_pelajar[0]->user_id.'/';
                                           if(file_exists($linkacademic)) {
-                                            $fileList = glob($linkacademic. $data_id.'.*');
+                                            $fileList = glob($linkacademic. $detail_pelajar[0]->files.'.*');
                                             if(count($fileList) != 0){
-                                              $fileName = substr($fileList[0], strpos($fileList[0], $data_id));
+                                              $fileName = substr($fileList[0], strpos($fileList[0], $detail_pelajar[0]->files));
                                               $filelink = base_url('/documents/'.$detail_pelajar[0]->user_id.'/'.$fileName);
                                             }
                                           }

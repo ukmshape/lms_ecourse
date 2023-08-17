@@ -38,7 +38,7 @@ if($this->session->userdata('session_student')) {
 
       </div>
 
-      <form class="contact-bx" method="post" action="https://ecourse.ukm.my/lms/login/index.php">
+      <form class="contact-bx" method="post" action="<?=LMSPATH;?>/login/index.php">
 
         <!-- <form id="form_horizontal"> -->
 

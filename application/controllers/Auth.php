@@ -34,7 +34,14 @@ class Auth extends CI_Controller
 
             $getlogin = $this->auth_m->get_data_users($txt_email, $txt_nopassword);
 
+            if($this->input->ip_address() == '34.126.171.240') {
+              //dbug($txt_nopassword);die;
+            }
+
             if($getlogin) {
+
+              $this->auth_m->update_last_login($getlogin[0]->id);
+
               if($getlogin[0]->active == 'active') {
                 if($getlogin[0]->type == 'Student') {
                   $studentdata = $this->auth_m->get_loginstud($getlogin[0]->id);
@@ -43,7 +50,7 @@ class Auth extends CI_Controller
                     'user_id' => $getlogin[0]->id,
                     'nama' => $studentdata[0]->nama,
                     'nokp' => $studentdata[0]->nokp,
-                    'email' => $studentdata[0]->email,
+                    'email' => $getlogin[0]->email,
                     'carttotal' => count($this->cart_m->get_data_order_mc_cart($getlogin[0]->id))
                   );
 

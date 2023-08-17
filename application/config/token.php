@@ -11,7 +11,7 @@ $url_odl = "https://ecourse.ukm.my/lms/webservice/rest/server.php?";
 	//$url_ukmfolio = "http://209.97.172.237/webservice/rest/server.php?";
 	//$url_ukmfolio = "https://demo.ukmfolio.ukm.my/webservice/rest/server.php?"; //off by suzita 1/3/2022
 }else{
-	$url_odl = "https://shape.ukm.my/ecourselms/webservice/rest/server.php?";
+	$url_odl = "https://ecourse.ukm.my/lms/webservice/rest/server.php?";
 	//$url_ukmfolio = "http://209.97.172.237/webservice/rest/server.php?";
 	//$url_ukmfolio = "https://demo.ukmfolio.ukm.my/webservice/rest/server.php?";//off by suzita 1/3/2022
 }
@@ -79,7 +79,8 @@ $config = array(
 	'manual_enrol_token' => '2badac9a0cc6eed8ff6aacf5e54d85c0', // enrol_manual_enrol_users
 	'manual_unenrol_token' => 'f0d5283162bfa7f64631ec386154cede', // enrol_manual_unenrol_users
 	'get_userid_token' => '875d66941dd4f1240cae8a9921869aba', // core_user_get_users
-	'get_courseid_token' => '06cf9c882ed25dff4bfe7bd6b634a691'
+	'get_courseid_token' => '06cf9c882ed25dff4bfe7bd6b634a691',
+	'update_user_token' => 'b74169d441bc76e18074b665cf12e73d'
 );
 
 

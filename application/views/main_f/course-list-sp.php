@@ -57,11 +57,11 @@
                   $imgfile = $this->main_m->get_course_preview_img($course[$i]->id);
 
                   if($imgfile) {
-                    $host_url = 'https://'.$_SERVER['HTTP_HOST']; //'http://'.$_SERVER['HTTP_HOST'];
+                    $host_url = LMSPATH; //'http://'.$_SERVER['HTTP_HOST'];
                     if($_SERVER['HTTP_HOST'] == "shape.ukm.my") {
-                      $filepath = $host_url.'/ecourselms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+                      $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
                     } else {
-                      $filepath = $host_url.'/lms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+                      $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
                     }
                   }
 

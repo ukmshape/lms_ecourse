@@ -24,7 +24,8 @@ class Urusetia_sp extends CI_Controller {
 
       $this->load->model('auth_m');
 
-	    $this->load->model('urusetiasp_m');
+	$this->load->model('urusetiasp_m');
+		$this->load->model('cart_m');
 			$this->load->config('token');//load token odl dev
 			$this->url_odl = $this->config->item('url_odl');
 			$this->get_user_token =  $this->config->item('get_user_token');
@@ -71,7 +72,14 @@ class Urusetia_sp extends CI_Controller {
 
 	{
 		$list_mohon = $this->urusetiasp_m->get_infopelajarsp();
-		$this->template->set('list_mohon', $list_mohon);
+		$array = array();
+		foreach($list_mohon as $row) {
+			$list_mohon = $this->urusetiasp_m->get_infopelajarsp_v2($row->order_id);
+			if($list_mohon) {
+				array_push($array, $list_mohon[0]);
+			}
+		}
+		$this->template->set('list_mohon', $array);
 		$list_mohon2 = $this->urusetiasp_m->get_infopelajarspstatusfakulti();
 		$this->template->set('list_mohon2', $list_mohon2);
 		//$list_infosemaksp = $this->urusetiasp_m->get_infosemaksp();
@@ -149,8 +157,6 @@ class Urusetia_sp extends CI_Controller {
 			}
 
 			$coursedetail = $this->urusetiasp_m->get_param_kursus_by_invoice($comment_urus[0]->user_id, $txt_noinvoice);
-			dbug($coursedetail);
-			die;
 
 			if($txt_status == 7) {
 				$subject = 'eCOURSE : Your Order '.$txt_noinvoice.', Unsuccessful';
@@ -253,7 +259,7 @@ class Urusetia_sp extends CI_Controller {
 		$listcomment = $this->urusetiasp_m->get_email_comment();
 		$this->template->set('listcomment', $listcomment);
 
-		if($detail_pelajar[0]->status_app == 6) {
+		if($detail_pelajar[0]->status_app == 6 && $detail_pelajar[0]->status_urus != 5) {
 			redirect('urusetia_sp/detail_pemohon_app/'.$parameter, 'refresh');
 		}
 
@@ -261,7 +267,7 @@ class Urusetia_sp extends CI_Controller {
 			redirect('urusetia_sp/detail_pemohon_verify/'.$parameter, 'refresh');
 		}
 
-		if($detail_pelajar[0]->status_app == 9 && $detail_pelajar[0]->status_admin == 6) {
+		if($detail_pelajar[0]->status_app == 9 && $detail_pelajar[0]->status_admin == 6 && $detail_pelajar[0]->status_urus != 5) {
 			redirect('urusetia_sp/detail_pemohon_app/'.$parameter, 'refresh');
 		}
 
@@ -269,8 +275,25 @@ class Urusetia_sp extends CI_Controller {
 			redirect('urusetia_sp/detail_pemohon_verify/'.$parameter, 'refresh');
 		}
 
-		$this->template->set('script_content','urusetia_sp_f/script/script-detailsSP');
-		$this->template->render('urusetia_sp_f/first_1');
+		if($detail_pelajar[0]->ansuran == 'yes') {
+			$detail_sponsor = $this->urusetiasp_m->get_detail_syarikat($detail_pelajar[0]->user_id);
+			$this->template->set('detail_sponsor', $detail_sponsor); //dbug($detail_mohonspnf001); die();
+
+			$customform = $this->urusetiasp_m->get_customform($detail_pelajar[0]->kursusid);
+			$this->template->set('customform', $customform);
+
+			$getForm = $this->urusetiasp_m->get_customformfixed($detail_pelajar[0]->kursusid);
+			$this->template->set('getForm', $getForm);
+
+			$this->template->set('script_content','urusetia_sp_f/script/script-detailsSP');
+			$this->template->render('urusetia_sp_f/ansuran');
+		} else {
+			$this->template->set('script_content','urusetia_sp_f/script/script-detailsSP');
+			$this->template->render('urusetia_sp_f/first_1');
+		}
+
+		//$this->template->set('script_content','urusetia_sp_f/script/script-detailsSP');
+		//$this->template->render('urusetia_sp_f/first_1');
 
 	}
 
@@ -494,7 +517,7 @@ class Urusetia_sp extends CI_Controller {
 								'tarikhsah' => date('Y-m-d H:i:s')
 							);
 
-						$this->urusetiamc_m->update_data_invoice($data);
+						$this->urusetiasp_m->update_data_invoice($data);
 
 						$comment_urus = $this->urusetiasp_m->get_data_invoice($txt_noinvoice);
 
@@ -599,7 +622,54 @@ class Urusetia_sp extends CI_Controller {
 						}
 
 							$coursedetail = $this->urusetiasp_m->get_param_kursus_by_invoice($comment_urus[0]->user_id, $txt_noinvoice);
-							dbug($coursedetail);
+							if($coursedetail[0]->total <= 0) {
+								$data = array(
+									'noinvoice' => $txt_noinvoice,
+									'status_urus' => 6,
+									'status_inv' => 4,
+									'ukmpersah' => $session_ukmper['id'],
+									'tarikhsah' => date('Y-m-d H:i:s')
+								);
+	
+								$this->urusetiasp_m->update_data_invoice($data);
+
+								if($txt_payment1 == date("Y-m-d")) {
+									$customkursus = $this->urusetiasp_m->get_customformfixed($coursedetail[0]->kursusid);
+
+									$noinv = '';
+									$createinv = 'INVS'.date('Y').'-'; //INVS2022-0001
+									$invlast = $this->cart_m->get_data_invoice($createinv);
+
+									$length = 4;
+									$char = 0;
+									$type = 'd';
+									$format = "%{$char}{$length}{$type}"; // or "$010d";
+
+									if($invlast) {
+									$nom = str_replace('INVS'.date('Y').'-','',$invlast[0]->noinvoice);
+									$newNom = sprintf($format, ($nom+1));
+									$noinv = $createinv.$newNom;
+									} else {
+									$noinv = $createinv.'0001';
+									}
+
+									$input_inv = array (
+									'noinvoice' => $noinv,
+									'order_id' => $coursedetail[0]->order_id,
+									'order_type' => 'SP',
+									'status_inv' => 3,
+									'user_id' => $coursedetail[0]->user_id,
+									'total' => $customkursus[0]->ins_1,
+									'notification' => 0,
+									'tarikhinvoice' => date('Y-m-d H:i:s')
+									);
+
+									$insert_data_invoice = $this->cart_m->insert_data_invoice($input_inv);
+									//////// INV /////////
+
+								}
+
+							}
 
 							$subject = 'eCOURSE : Your Application '.$txt_noinvoice.', Successful';
 							$message =
@@ -667,7 +737,7 @@ class Urusetia_sp extends CI_Controller {
 		$detail_sponsor = $this->urusetiasp_m->get_detail_syarikat($detail_pelajar[0]->user_id);
 		$this->template->set('detail_sponsor', $detail_sponsor); //dbug($detail_mohonspnf001); die();
 
-    $customform = $this->urusetiasp_m->get_customform($detail_pelajar[0]->kursusid);
+		$customform = $this->urusetiasp_m->get_customform($detail_pelajar[0]->kursusid);
 		$this->template->set('customform', $customform);
 
 		$getForm = $this->urusetiasp_m->get_customformfixed($detail_pelajar[0]->kursusid);
@@ -768,7 +838,7 @@ class Urusetia_sp extends CI_Controller {
 		$detail_sponsor = $this->urusetiasp_m->get_detail_syarikat($detail_pelajar[0]->user_id);
 		$this->template->set('detail_sponsor', $detail_sponsor); //dbug($detail_mohonspnf001); die();
 
-    $customform = $this->urusetiasp_m->get_customform($detail_pelajar[0]->kursusid);
+		$customform = $this->urusetiasp_m->get_customform($detail_pelajar[0]->kursusid);
 		$this->template->set('customform', $customform);
 
 		$getForm = $this->urusetiasp_m->get_customformfixed($detail_pelajar[0]->kursusid);

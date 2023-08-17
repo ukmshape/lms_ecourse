@@ -111,8 +111,10 @@ $nama = $session_ukmper['fullname'];
                                           <?php
                                             $liststatus = $this->urusetiasp_m->get_liststatus($row->status_app);
                                             echo "Application: ";
-
+                                            
                                             if($liststatus[0]->status_id == '9' && $row->status_admin == '5') {
+                                              echo "<span class='text-warning font-weight-bold'>Waiting for Verification</span>";
+                                            } else if($liststatus[0]->status_id == '9' || ($row->status_admin == '5' && $row->status_inv == '4')) {
                                               echo "<span class='text-warning font-weight-bold'>Waiting for Verification</span>";
                                             } else if($liststatus[0]->status_id == '3') {
                                               echo "<span class='text-red font-weight-bold'>".$liststatus[0]->status."</span>";

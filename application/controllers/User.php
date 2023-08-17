@@ -142,28 +142,34 @@ class User extends CI_Controller {
     if($this->input->post('btn_submit') != null) {
 
       $user_id = $this->input->post('user_id');
-      $txt_password = $this->input->post('txt_password');
+      $email = $this->input->post('email');
+      // $txt_password = $this->input->post('txt_password');
 
-      $txt_nopassword = trim(strtoupper(md5(trim($txt_password))));
+      // $txt_nopassword = trim(strtoupper(md5(trim($txt_password))));
 
-      $data = array(
-        'id' => $user_id,
-        'password' => $txt_nopassword
+      // $data = array(
+      //   'id' => $user_id,
+      //   'password' => $txt_nopassword
+      // );
+
+      $txt_repass = trim($this->input->post('txt_password'));
+
+      $params1 = array(
+        'email' => $email,
+        'password' => $txt_repass
       );
 
+      $params2 = serialize($params1);
+      $serialize = base64_encode($params2);
 
+      $password = $serialize;
 
+       $update_pswd = array(
+        'id' => $user_id,
+        'password' => $password,
+      );
 
-
-      //check file utk rewrite password baru.. ikot dlm table cache laa
-
-
-
-
-
-
-
-      $update_data_user = $this->user_m->update_data_user($data);
+      $update_data_user = $this->user_m->update_data_user($update_pswd);
 
       if($update_data_user) {
         $echo =  base_url('/user/list_user');

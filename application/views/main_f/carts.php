@@ -68,8 +68,8 @@
                                 $imgfile = $this->main_m->get_course_preview_img($value->kursusid);
 
                                 if($imgfile) {
-                                  $host_url = 'https://'.$_SERVER['HTTP_HOST'];
-                                  $filepath = $host_url.'/lms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+                                  $host_url = LMSPATH;
+                                  $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
                                 }
 
                                 ?>

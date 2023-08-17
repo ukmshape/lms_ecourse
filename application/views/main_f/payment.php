@@ -95,6 +95,7 @@ $invoicedetails = $this->main_m->get_param_kursus_by_invoice($user_id,$invoice,$
                     <td style="text-align: left;"><input type="file" name="resit_upload" accept="image/png, image/gif, image/jpeg, application/pdf" required></td>
                   </tr>
                 </table>
+                
                 <table class="table table-sm table-striped table-dark">
                   <tr style="color:#89ccd6;font-size: 16pt;">
                     <th>No.</th>
@@ -113,7 +114,7 @@ $invoicedetails = $this->main_m->get_param_kursus_by_invoice($user_id,$invoice,$
                     <td><?=$i++;?></td>
                     <td><?=$value->kodkursus;?></td>
                     <td><?=$mdl_courselist[0]->cname;?></td>
-                    <td>RM <?=$value->totalprice;?></td>
+                    <td>RM <?php if($value->totalprice >= $totalprice) { echo $totalprice; } else { echo $value->total; } ?></td>
                   </tr>
                   <?php
                   }

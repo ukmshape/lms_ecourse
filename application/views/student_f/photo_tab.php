@@ -89,7 +89,7 @@ if($userdata[0]->gambar != NULL) {
     }
   }
 
-  dbug($src_image);
+  //dbug($src_image);
 } else {
   $src_image = base_url().'/assets/images/profile/profile.png';
 }

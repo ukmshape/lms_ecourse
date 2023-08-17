@@ -20,6 +20,7 @@ $password = '';
 if(isset($data_user)) {
   $user_id = $data_user[0]->id;
   $password = $data_user[0]->password;
+  $email = $data_user[0]->email;
 }
 ?>
 <style>
@@ -106,6 +107,7 @@ if(isset($data_user)) {
                 											</tr>
                 										</table>
                                     <input type="hidden" name="user_id" value="<?=$user_id;?>">
+                                    <input type="hidden" name="email" value="<?=$email;?>">
                                     <!--<button type="button" class="btn-secondry add-item m-r5"><i class="fa fa-fw fa-plus-circle"></i>Add Item</button>-->
                 									</div>
 

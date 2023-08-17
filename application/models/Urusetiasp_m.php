@@ -34,7 +34,47 @@ class Urusetiasp_m extends CI_Model {
 																			JOIN data_order_sp ON data_order_sp.ordersp_id = data_cart.order_id
 																			JOIN data_pelajar ON data_pelajar.user_id = data_cart.user_id
 																			JOIN param_kursus ON param_kursus.kursusid = data_order_sp.kursusid AND param_kursus.idcart = data_cart.idcart
-																			GROUP BY data_order_sp.ordersp_id");
+																			GROUP BY data_order_sp.ordersp_id
+																			ORDER BY data_invoice.noinvoice DESC");
+
+		return $query->result();
+	}
+
+	public function get_infopelajarsp_v2($order_id)
+	{
+		/*$query = $this->dbecourse->query("SELECT *
+                                      FROM data_cart a, data_order_sp b, data_pelajar c, data_pelajar_sponsor d, param_kursus e, data_invoice f
+                                      WHERE a.order_id=b.ordersp_id AND c.user_id=a.user_id AND d.nokp=c.nokp AND f.order_id = b.ordersp_id AND f.user_id = c.user_id AND b.kursusid = e.kursusid AND a.idcart = e.idcart
+																			GROUP BY f.order_id
+                                      ORDER by b.create_dated DESC");
+
+																			*/
+		$query = $this->dbecourse->query("SELECT DISTINCT *
+																			FROM `data_cart`
+																			JOIN `data_invoice` ON data_cart.order_id = data_invoice.order_id
+																			JOIN data_order_sp ON data_order_sp.ordersp_id = data_cart.order_id
+																			JOIN data_pelajar ON data_pelajar.user_id = data_cart.user_id
+																			JOIN param_kursus ON param_kursus.kursusid = data_order_sp.kursusid AND param_kursus.idcart = data_cart.idcart
+																			WHERE data_invoice.order_id = '$order_id'
+																			ORDER BY data_invoice.noinvoice DESC LIMIT 1");
+
+		return $query->result();
+	}
+
+	public function get_paymentloop($order_id)
+	{
+		/*$query = $this->dbecourse->query("SELECT *
+                                      FROM data_cart a, data_order_sp b, data_pelajar c, data_pelajar_sponsor d, param_kursus e, data_invoice f
+                                      WHERE a.order_id=b.ordersp_id AND c.user_id=a.user_id AND d.nokp=c.nokp AND f.order_id = b.ordersp_id AND f.user_id = c.user_id AND b.kursusid = e.kursusid AND a.idcart = e.idcart
+																			GROUP BY f.order_id
+                                      ORDER by b.create_dated DESC");
+
+																			*/
+		$query = $this->dbecourse->query("SELECT DISTINCT *
+		FROM `data_invoice`
+		JOIN data_order_sp ON data_order_sp.ordersp_id = data_invoice.order_id
+		WHERE data_invoice.order_id = '$order_id'
+		ORDER BY data_invoice.noinvoice ASC");
 
 		return $query->result();
 	}

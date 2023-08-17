@@ -205,8 +205,8 @@ class Auth_m extends MY_Model {
 	public function get_loginstud($user_id)
 	{
 		$sql = "SELECT *
-			 FROM data_pelajar
-			 WHERE user_id = '$user_id'";
+			FROM data_pelajar
+			WHERE user_id = '$user_id'";
 		$query = $this->dbecourse->query($sql);
 		return $query->result();
 	}
@@ -214,11 +214,18 @@ class Auth_m extends MY_Model {
 	public function get_data_users($txt_email, $txt_nopassword)
 	{
 		$sql = "SELECT *
-			 FROM data_users
-			 WHERE email = '$txt_email'
-			 AND password = '$txt_nopassword'";
+			FROM data_users
+			WHERE email = '$txt_email'
+			AND password = '$txt_nopassword'";
 		$query = $this->dbecourse->query($sql);
 		return $query->result();
+	}
+
+	public function update_last_login($id) {
+		$data = array('last_login' => date('Y-m-d H:i:s'));
+		$this->dbecourse->where('id', $id);
+		$this->dbecourse->update('data_users', $data);
+		return $this->dbecourse->affected_rows();
 	}
 
 	// public function get_data_logmasukpel($nomatrik)

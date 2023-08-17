@@ -63,17 +63,20 @@
                             </td>
                             <td style="text-align:center; vertical-align:middle;">
                               <?php
-                                $noinvoice = $this->student_m->get_data_invoice($row->order_id);
+                                //$noinvoice = $this->student_m->get_data_invoice($row->order_id);
                                ?>
-                              <?php if($noinvoice) {
-                                $noinv = $noinvoice[0]->noinvoice;
-                                echo $noinvoice[0]->noinvoice;
-                               } ?>
+                              <?php //if($noinvoice) {
+                                //$noinv = $noinvoice[0]->noinvoice;
+                                //echo $noinvoice[0]->noinvoice;
+                                $noinv = $row->noinvoice;
+                                echo $row->noinvoice;
+                               //}
+                                ?>
                             </td>
                             <td style="text-align:center; vertical-align:middle;">
-                              <?php if($noinvoice) { ?>
-                                <?php echo date("d/m/Y", strtotime($noinvoice[0]->tarikhinvoice)); ?><br><?php echo date("g:i A", strtotime($noinvoice[0]->tarikhinvoice)); ?>
-                               <?php } ?>
+                              <?php //if($noinvoice) { ?>
+                                <?php echo date("d/m/Y", strtotime($row->tarikhinvoice)); ?><br><?php echo date("g:i A", strtotime($row->tarikhinvoice)); ?>
+                               <?php //} ?>
                             </td>
                             <td style="text-align:center; vertical-align:middle;">
                                 <?php
@@ -91,6 +94,8 @@
                                     echo "<span class='text-red font-weight-bold'>Unpaid</span>";
                                 } else if($status_app == '9' && ($row->status_fakulti == '5' || $row->status_admin == '5')) {
                                     echo "<span class='text-yellow font-weight-bold'>Application in Process</span>";
+                                } else if($status_app == '9' || ($row->status_admin == '5' && $row->status_inv == '4')) {
+                                  echo "<span class='text-yellow font-weight-bold'>Application in Process</span>";
                                 } else if($status_app == '1' || $status_app == '2') {
                                     echo "<span class='text-red font-weight-bold'>Process Order</span>";
                                 } else if($status_app != '3') {
@@ -111,7 +116,8 @@
                                 if($type == 'MC') {
                                   $url = base_url('/carts');
                                 } else if($type == 'SP') {
-                                  $url = base_url('/student/personaldetail?order_id='.$row->order_id);
+                                  //$url = base_url('/student/personaldetail?order_id='.$row->order_id);
+                                  $url = base_url('/student/personaldetail?noinvoice='.$row->noinvoice);
                                 }
                                  ?>
                                   <a name="detail_pemohon" href="<?php echo $url; ?>" class="btn button-sm bg-danger mb-2" style="color:white;" title="Action">Pay Now</a>

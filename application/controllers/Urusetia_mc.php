@@ -953,7 +953,7 @@ class Urusetia_mc extends CI_Controller {
 						$user_id = $idnumber;
 						$unserialize = unserialize(base64_decode($user[0]->password));
 
-		        $password = $unserialize['password'];
+						$password = $unserialize['password'];
 
 						//dbug($password);die;
 

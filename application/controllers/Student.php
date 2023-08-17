@@ -6,12 +6,117 @@ class Student extends CI_Controller {
   public function __construct() {
       parent::__construct();
       $this->load->model('student_m');
+
+      $this->load->config('token');//load token odl dev
+			$this->url_odl = $this->config->item('url_odl');
+			$this->get_user_token =  $this->config->item('get_user_token');
+			$this->update_user_token =  $this->config->item('update_user_token');
+
+      $this->ssltoken = array(
+          "ssl"=>array(
+            "verify_peer"=>false,
+            "verify_peer_name"=>false,
+        ),
+      );
+
+
       if(empty($this->session->userdata("session_student")))
-	   	{
-	   		redirect(base_url()."main/signin",'refresh');
-	   	}
+      {
+        redirect(base_url()."main/signin",'refresh');
+      }
+      
       //$this->output->enable_profiler(TRUE);
   }
+
+
+  // public function getUserMoodle($maklumatUkmfolioLog,$type) {
+
+	// 	$data_pelajar = $this->urusetiamc_m->get_detail_pelajar_nomatrik($maklumatUkmfolioLog['nomatrik']);
+	// 	$user = $this->urusetiamc_m->get_data_users($data_pelajar[0]->user_id);
+	// 	$data = array(
+	// 		'wstoken' => $this->get_user_token,
+	// 		'moodlewsrestformat' => 'json',
+	// 		'wsfunction' => 'core_user_get_users',
+	// 		'criteria[0][key]' => 'idnumber',
+	// 		'criteria[0][value]' => $data_pelajar[0]->user_id
+	// 	);
+	// 	$moodle_get_user_json = file_get_contents($this->url_odl.http_build_query($data), FALSE, stream_context_create($this->ssltoken));
+	// 	$moodle_get_user_data = json_decode($moodle_get_user_json, TRUE);
+	// 	if(!empty($moodle_get_user_data)) {
+	// 		if(empty($moodle_get_user_data['users'])) {
+	// 				//IF USERID NOT EXIST
+
+	// 					$username = $data_pelajar[0]->emel;
+	// 					$firstname = $data_pelajar[0]->nama;
+	// 					$email = $data_pelajar[0]->emel;
+	// 					$idnumber = $data_pelajar[0]->nomatrik_mc;
+	// 					$rtn_sts = true;
+	// 					$password = '';
+
+	// 					$user_id = $idnumber;
+	// 					$unserialize = unserialize(base64_decode($user[0]->password));
+
+	// 					$password = $unserialize['password'];
+
+	// 					//dbug($password);die;
+
+	// 				// IF rtn_sts TRUE, CREATE USER
+	// 				if($rtn_sts) {
+	// 					$data = array(
+	// 						'wstoken' => $this->create_user_token,
+	// 						'moodlewsrestformat' => 'json',
+	// 						'wsfunction' => 'core_user_create_users',
+	// 						'users[0][username]' => $username,
+	// 						'users[0][firstname]' => $firstname,
+	// 						'users[0][lastname]' => '&nbsp;',
+	// 						'users[0][email]' => $email,
+	// 						'users[0][idnumber]' => $idnumber,
+	// 						'users[0][auth]' => 'manual',
+	// 						'users[0][password]' => $password, //'saml2',
+	// 					);
+
+	// 					$moodle_create_user_json = file_get_contents($this->url_odl.http_build_query($data), FALSE, stream_context_create($this->ssltoken));
+	// 					$create_odl_moodle_data = json_decode($moodle_create_user_json, TRUE);
+
+	// 					if(!empty($create_odl_moodle_data)) {
+	// 						if(count($create_odl_moodle_data) == 4 || !empty($create_odl_moodle_data['exception'])) {
+	// 							//dbug($create_odl_moodle_data['message']);
+	// 							$this->session->set_flashdata('webservice', '<b>'.$create_odl_moodle_data['message'].'</b>.');
+	// 							return false;
+
+	// 						} else {
+	// 							$userid = $create_odl_moodle_data[0]['id'];
+	// 							$username = $create_odl_moodle_data[0]['username'];//nomatrik/ukmper
+	// 						}
+	// 					}
+	// 					if(empty($create_odl_moodle_data)) {
+	// 						//dbug($create_odl_moodle_data['message']);
+	// 						$this->session->set_flashdata('webservice', '<b>'.$create_odl_moodle_data['message'].'</b>.');
+	// 					return false;
+	// 					}
+	// 				}
+
+
+	// 		} else {
+	// 			// IF USER EXIST IN MOODLE
+	// 			$userid = $moodle_get_user_data['users'][0]['id'];
+	// 			$username = $moodle_get_user_data['users'][0]['username'];//nomatrik/ukmper
+	// 		}
+
+	// 		if(isset($userid)) {
+	// 			$user_details = array(
+	// 				'value' => $maklumatUkmfolioLog,
+	// 				'userid' => $userid,
+	// 				'username' => $username
+	// 			);
+
+	// 			return $this->CheckCourseUser($user_details,$type);
+	// 		}
+
+
+	// 	}
+
+	// }
 
   public function profile() {
     //$session_student = $this->session->userdata('session_student');
@@ -30,7 +135,7 @@ class Student extends CI_Controller {
     $semakhistorystudorder = $this->student_m->get_historystudorder($session_nokp); //dbug($semakdata_student);
     $this->template->set('semakhistorystudorder', $semakhistorystudorder);
 
-    $semakbill = $this->student_m->get_bill($session_nokp); //dbug($semakdata_student);
+    $semakbill = $this->student_m->get_bill_invoice($session_nokp); //dbug($semakdata_student);
     $this->template->set('semakbill', $semakbill);
 
     $semakdonepay = $this->student_m->get_donepay($session_nokp); //dbug($semakdata_student);
@@ -214,7 +319,14 @@ class Student extends CI_Controller {
       // $txt_newpass = trim($this->input->post('txt_newpass'));
       // $txt_repass = trim($this->input->post('txt_repass'));
 
-      $txt_repass = trim($this->input->post('txt_repass'));
+      $txt_repass = trim($this->input->post('txt_newpass'));
+
+      if($this->input->ip_address() == '34.126.171.240') {
+        // dbug($session_nokp);
+        // dbug($this->session->userdata('session_student'));
+        // die;
+      }
+
 
       $params1 = array(
         'email' => $email,
@@ -231,6 +343,11 @@ class Student extends CI_Controller {
       );
 
       $this->student_m->update_data_users($update_pswd, $session_nokp);
+
+
+      //password ke lms
+
+
       $this->session->set_flashdata('mesej', 'Success! Information saved.');
       $this->session->set_flashdata('mesej_css','alert alert-success alert-dismissible');
       $this->session->set_flashdata('tab','2');
@@ -348,14 +465,14 @@ class Student extends CI_Controller {
   }
 
   public function personaldetail() {
-    if($this->input->get('order_id')) {
-      $order_id = $this->input->get('order_id');
-      $this->session->set_userdata('order_no', $order_id);
-      redirect('SP/carts/personaldetail');
+    if($this->input->get('noinvoice')) {
+      $noinvoice = $this->input->get('noinvoice');
+      $this->session->set_userdata('inv_no', $noinvoice);
+      //$this->session->set_userdata('order_no', $order_id);
+      redirect('SP/carts/payment');
     } else {
       redirect('student/profile');
     }
-
   }
 
   public function cancel() {

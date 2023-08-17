@@ -203,7 +203,7 @@ $nama = $session_ukmper['fullname'];
                                     </a>
                                 </td> -->
                                 <td>
-                                    <a href="https://ecourse.ukm.my/lms">
+                                    <a href="<?php echo LMSPATH;?>">
                                         <div class="card shadow" style="border-radius: 10px;">
                                             <div class="card-body"><i class="fas fa-desktop-alt fa-2xl fa-icolor fa-scolor"></i><br><br>Microcredential LMS</div>
                                         </div>

@@ -517,10 +517,28 @@ class SP extends CI_Controller {
         $getOrderSP = $this->main_m->get_data_invoice_sp($this->input->post('txt_inv_no'));
 
         if($getOrderSP) {
-          $statusdeposit = $getOrderSP[0]->status_deposit;
-          $status_payment1 = $getOrderSP[0]->status_payment1;
-          $status_payment2 = $getOrderSP[0]->status_payment2;
-          $status_payment3 = $getOrderSP[0]->status_payment3;
+          $customform = $this->main_m->get_customform($getOrderSP[0]->kursusid);
+          
+          if($customform[0]->deposit == $getOrderSP[0]->total) {
+            $statusdeposit = 4;
+          } else {
+            $statusdeposit = $getOrderSP[0]->status_deposit;
+          }
+          if($customform[0]->ins_1 == $getOrderSP[0]->total) {
+            $status_payment1 = 4;
+          } else {
+            $status_payment1 = $getOrderSP[0]->status_payment1;
+          }
+          if($customform[0]->ins_2 == $getOrderSP[0]->total) {
+            $status_payment2 = 4;
+          } else {
+            $status_payment2 = $getOrderSP[0]->status_payment2;
+          }
+          if($customform[0]->ins_3 == $getOrderSP[0]->total) {
+            $status_payment3 = 4;
+          } else {
+            $status_payment3 = $getOrderSP[0]->status_payment3;
+          }
 
           if($getOrderSP[0]->jnspmbyrn == 'Own' || $getOrderSP[0]->jnspmbyrn == '') {
             $statusdeposit = 4;
@@ -540,6 +558,8 @@ class SP extends CI_Controller {
         $dataInvoiceSP = array(
           'noinvoice' => $this->input->post('txt_inv_no'),
           'status_urus' => 5,
+          'tarikhpayment' => date('Y-m-d H:i:s'),
+          'files' => $config['file_name'],
           'notification' => 1
         );
 

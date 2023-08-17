@@ -194,7 +194,7 @@ $nama = $session_ukmper['fullname'];
                             </a>
                           </div>
                           <div class="col-lg-6 col-md-6 mt-3">
-                            <a href="https://shape.ukm.my/ecourselms/mod/page/view.php?id=8">
+                            <a href="<?=LMSPATH;?>/mod/page/view.php?id=8">
                                 <div class="card shadow" style="border-radius: 10px; pointer-events: none;">
                                     <div class="card-body"><i class="fas fa-certificate fa-2xl fa-icolor fa-scolor"></i><br><br>eCourse LMS</div>
                                 </div>

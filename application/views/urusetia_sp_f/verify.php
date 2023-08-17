@@ -479,10 +479,10 @@ $nama = $session_ukmper['fullname'];
                                                       <table id="tbl_list" class="table table-bordered rounded shadow-sm p-3 bg-white rounded">
                                                         <thead>
                                                           <tr>
-                                                            <th style="font-weight: 500; text-align:center;">DEPOSIT(RM)</th>
-                                                            <th style="font-weight: 500; text-align:center;">FIRST PAYMENT(RM)</th>
-                                                            <th style="font-weight: 500; text-align:center;">SECOND PAYMENT(RM)</th>
-                                                            <th style="font-weight: 500; text-align:center;">THIRD PAYMENT(RM)</th>
+                                                            <th style="font-weight: 500; text-align:center;">DEPOSIT(RM) <?php if($getForm[0]->deposit > 0) { ?><span class="text-red">*</span><?php } ?></th>
+                                                            <th style="font-weight: 500; text-align:center;">FIRST PAYMENT(RM) <?php if($getForm[0]->ins_1 > 0) { ?><span class="text-red">*</span><?php } ?></th>
+                                                            <th style="font-weight: 500; text-align:center;">SECOND PAYMENT(RM) <?php if($getForm[0]->ins_2 > 0) { ?><span class="text-red">*</span><?php } ?></th>
+                                                            <th style="font-weight: 500; text-align:center;">THIRD PAYMENT(RM) <?php if($getForm[0]->ins_3 > 0) { ?><span class="text-red">*</span><?php } ?></th>
                                                           </tr>
                                                         </thead>
                                                         <tbody>

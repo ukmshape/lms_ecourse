@@ -342,6 +342,8 @@ switch (ENVIRONMENT)
 
 	define('STORAGEPATH', 'E:\ecourse\documents\\');
 
+	define('LMSPATH', 'https://ecourse-lms.ukm.my/');
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

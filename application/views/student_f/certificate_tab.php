@@ -76,15 +76,15 @@
                 $imgfile = $this->student_m->get_course_preview_img($row->kursusid);
 
                 if($imgfile) {
-                  $host_url = 'http://'.$_SERVER['HTTP_HOST'];
-                  $filepath = $host_url.'/lms/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
+                  $host_url = LMSPATH;
+                  $filepath = $host_url.'/pluginfile.php/'.$imgfile[0]->contextid.'/'.$imgfile[0]->component.'/'.$imgfile[0]->filearea.'/'.$imgfile[0]->filename;
                 }
 
                 ?>
                 <img src="<?php echo $filepath;?>" alt="">
               </div>
               <div class="info-bx text-center">
-                <h5><a href="https://ecourse.ukm.my/lms"><?php echo ($row->namakursus); ?></a></h5>
+                <h5><a href="<?=LMSPATH;?>"><?php echo ($row->namakursus); ?></a></h5>
 
 
 

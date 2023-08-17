@@ -157,7 +157,7 @@
 
                         <li><a href="<?= base_url('/main/faqs'); ?>">FAQs </a></li>
 
-                        <li><a href="https://pkp.ukm.my/mcodlukm/">eCourse LMS </a></li>
+                        <li><a href="<?=LMSPATH;?>">eCourse LMS </a></li>
 
                     </ul>
 

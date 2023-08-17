@@ -5,40 +5,9 @@ class Main_m extends CI_Model {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->dbpdata=$this->load->database('pdata',true);
-		//$this->dbsmk_prodV=$this->load->database('smk_prodV',true);
-		//$this->dbsmpl=$this->load->database('smpl',true);
 		$this->dbecourse=$this->load->database('ecourse',true);
 		$this->dbmcodlukm=$this->load->database('mcodlukm',true);
 	}
-
-	public function pdata() {
-		$sql = "SELECT DISTINCT *
-				FROM 	ew10pengguna
-				WHERE ew10kelas = 'PEL' AND ew10noper LIKE 'A%' LIMIT 20";
-
-	  $query = $this->dbpdata->query($sql);
-	  return $query->result();
-	}
-
-
-
-			// ------------------- db smpl ------------------- //
-
-	public function get_warganegara() {
-		$sql = "SELECT u27negara.u27knegara u27knegara,
-							u27negara.u27nnegara u27nnegara
-						FROM u27negara
-						WHERE u27knegara <> '*'
-						ORDER BY u27nnegara ASC";
-
-	  $query = $this->dbsmpl->query($sql);
-	  return $query->result();
-	}
-
-
-
-
 
 		// ------------------- db lms ------------------- //
 
