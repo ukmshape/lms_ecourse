@@ -92,7 +92,7 @@ if(isset($data_user)) {
                                             <div class="col-md-2">
                 															<label class="col-form-label">Password <span class="text-red">*</span></label>
                 															<div>
-                																<input class="form-control" type="password" id="txt_password" name="txt_password" minlength="8" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/(/)]).{8,}$" value="" placeholder="Password" onkeyup="passwordChecking();" required>
+                                                                            <input class="form-control" type="password" id="txt_password" name="txt_password" minlength="8" pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-/(/)]).{8,}$" value="" placeholder="Password" onkeyup="passwordChecking();" required>
                 															</div>
                 														</div>
                                             <div class="col-md-2">
