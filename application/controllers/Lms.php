@@ -9,6 +9,6 @@ class Lms extends CI_Controller {
     }
 
     public function index() {
-        header(LMSPATH);
+        header( "Location: ".LMSPATH );
     }
 }
