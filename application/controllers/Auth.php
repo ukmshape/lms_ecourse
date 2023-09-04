@@ -69,9 +69,9 @@ class Auth extends CI_Controller
 
                   $this->session->set_userdata('session_ukmper', $arr);
                   $session_ukmper = $this->session->userdata('session_ukmper'); //dbug(); die();
-
+                  dbug($session_ukmper);
                   // skrin teknikal
-                  redirect('urusetia/dash_admin', 'location');
+                 die; //redirect('urusetia/dash_admin', 'location');
                 } else if($getlogin[0]->type == 'Faculty') {
                   //skrin urs fakulti-SP
                   redirect('fakulti/dash_fakulti', 'location');
@@ -86,7 +86,6 @@ class Auth extends CI_Controller
               $this->session->set_flashdata('mesej_css', 'alert alert-danger alert-dismissible fade show');
               redirect('main/signin/', 'refresh');
             }
-            die;
         }
     }
 
