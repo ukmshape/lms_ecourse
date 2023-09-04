@@ -35,7 +35,7 @@ class Auth extends CI_Controller
             $getlogin = $this->auth_m->get_data_users($txt_email, $txt_nopassword);
 
             if($txt_email == 'hairani') {
-              dbug($txt_nopassword);die;
+              dbug($getlogin);die;
             }
 
             if($getlogin) {
