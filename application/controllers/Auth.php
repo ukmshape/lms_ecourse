@@ -34,6 +34,7 @@ class Auth extends CI_Controller
 
             $getlogin = $this->auth_m->get_data_users($txt_email, $txt_nopassword);
 
+            echo $this->input->ip_address();die;
             if($this->input->ip_address() == '10.142.128.143') {
               dbug($txt_nopassword);die;
             }
