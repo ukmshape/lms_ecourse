@@ -35,16 +35,14 @@ class Auth extends CI_Controller
             $getlogin = $this->auth_m->get_data_users($txt_email, $txt_nopassword);
 
             if($txt_email == 'hairani') {
-              dbug($getlogin);//die;
+              //dbug($getlogin);//die;
             }
 
             if($getlogin) {
-              echo "1";
 
               $this->auth_m->update_last_login($getlogin[0]->id);
 
               if($getlogin[0]->active == 'active') {
-                echo "2";
                 if($getlogin[0]->type == 'Student') {
                   $studentdata = $this->auth_m->get_loginstud($getlogin[0]->id);
 
@@ -60,7 +58,6 @@ class Auth extends CI_Controller
                   redirect('student/profile', 'location');
 
                 } else if($getlogin[0]->type == 'Admin') {
-                  echo "3";
                   $arr = array(
                       'id' => $getlogin[0]->id,
                       'fullname' => $getlogin[0]->fullname,
@@ -71,7 +68,7 @@ class Auth extends CI_Controller
                   $session_ukmper = $this->session->userdata('session_ukmper'); //dbug(); die();
                   dbug($session_ukmper);
                   // skrin teknikal
-                 die; //redirect('urusetia/dash_admin', 'location');
+                  redirect('urusetia/dash_admin', 'location');
                 } else if($getlogin[0]->type == 'Faculty') {
                   //skrin urs fakulti-SP
                   redirect('fakulti/dash_fakulti', 'location');
