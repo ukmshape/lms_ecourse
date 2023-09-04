@@ -66,7 +66,7 @@ class Auth extends CI_Controller
 
                   $this->session->set_userdata('session_ukmper', $arr);
                   $session_ukmper = $this->session->userdata('session_ukmper'); //dbug(); die();
-                  dbug($session_ukmper);
+                  //dbug($session_ukmper);
                   // skrin teknikal
                   redirect('urusetia/dash_admin', 'location');
                 } else if($getlogin[0]->type == 'Faculty') {
