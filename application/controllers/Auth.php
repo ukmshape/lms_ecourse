@@ -9,7 +9,7 @@ class Auth extends CI_Controller
         $this->load->model('cart_m');
         //$this->output->enable_profiler(TRUE);
         
-        session_save_path(APPPATH."ci_session/");
+        //session_save_path(APPPATH."ci_session/");
         session_start();
     }
     
