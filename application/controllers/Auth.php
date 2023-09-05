@@ -7,7 +7,10 @@ class Auth extends CI_Controller
         parent::__construct();
         $this->load->model('auth_m');
         $this->load->model('cart_m');
-        $this->output->enable_profiler(TRUE);
+        //$this->output->enable_profiler(TRUE);
+        
+        session_save_path(APPPATH."ci_session/");
+        session_start();
     }
     
     public function main_login()

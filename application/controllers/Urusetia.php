@@ -8,6 +8,7 @@ class Urusetia extends CI_Controller {
       $this->load->library('session');
       $this->load->model('auth_m');
       //$this->output->enable_profiler(TRUE);
+      session_start();
   }
 
 	public function dash_admin()
@@ -18,6 +19,7 @@ class Urusetia extends CI_Controller {
       dbug('$this->session->userdata()');
       dbug($this->session->userdata());
       die;
+
         $this->template->set('script_content', 'admin_f/script/script-dashboardlayout');
         $this->template->render('admin_f/dashboard_main');
 	}
