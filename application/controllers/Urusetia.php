@@ -13,7 +13,9 @@ class Urusetia extends CI_Controller {
 	public function dash_admin()
 	{
       //dbug($this->session->userdata("session_ukmper")); 
+      dbug('$_SESSION[]');
       dbug($_SESSION["session_ukmper"]);
+      dbug('$this->session->userdata()');
       dbug($this->session->userdata());
       die;
         $this->template->set('script_content', 'admin_f/script/script-dashboardlayout');
