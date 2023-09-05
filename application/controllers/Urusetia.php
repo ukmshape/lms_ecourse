@@ -5,13 +5,14 @@ class Urusetia extends CI_Controller {
 
   public function __construct() {
       parent::__construct();
+      $this->load->library('session');
       $this->load->model('auth_m');
       //$this->output->enable_profiler(TRUE);
   }
 
 	public function dash_admin()
 	{
-      dbug($this->session->userdata("session_ukmper")); 
+      //dbug($this->session->userdata("session_ukmper")); 
       dbug($this->session->userdata());
       die;
         $this->template->set('script_content', 'admin_f/script/script-dashboardlayout');
