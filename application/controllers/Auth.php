@@ -65,6 +65,7 @@ class Auth extends CI_Controller
                   );
 
                   $this->session->set_userdata('session_ukmper', $arr);
+                  $_SESSION["session_ukmper"] = $arr;
                   $session_ukmper = $this->session->userdata('session_ukmper'); //dbug(); die();
                   //dbug($session_ukmper);
                   // skrin teknikal
