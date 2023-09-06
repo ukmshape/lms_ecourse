@@ -381,16 +381,14 @@ $config['encryption_key'] = '987654321';
 |
 | Other session cookie settings are shared with the rest of the application,
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
-|
 */
-$config['sess_driver'] = 'files';
+$config['sess_driver'] = 'database';
 $config['sess_cookie_name'] = 'ci_sessions';
 $config['sess_expiration'] = 14400;
 $config['sess_save_path'] = APPPATH . 'ci_session/';
 $config['sess_match_ip'] = TRUE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
-
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
