@@ -24,6 +24,12 @@ COPY ./apache-config.conf /etc/apache2/sites-available/000-default.conf
 RUN a2ensite 000-default
 
 COPY ./ /var/www/html/
+# Create ci_session directory
+RUN mkdir -p /var/www/html/application/ci_session
+
+# Change ownership and permission for ci_session
+RUN chown -R www-data:www-data /var/www/html/application/ci_session
+RUN chmod 755 /var/www/html/application/ci_session
 
 # Expose port 80
 EXPOSE 80
