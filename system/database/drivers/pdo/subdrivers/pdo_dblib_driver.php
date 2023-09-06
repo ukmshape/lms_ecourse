@@ -94,7 +94,7 @@ class CI_DB_pdo_dblib_driver extends CI_DB_pdo_driver {
 
 		if (empty($this->dsn))
 		{
-			$this->dsn = $params['subdriver'].':host='.(empty($this->hostname) ? '127.0.0.1' : $this->hostname);
+			$this->dsn = $params['subdriver'].':host='.(empty($this->hostname) ? 'https://ecourse.ukm.my' : $this->hostname);
 
 			if ( ! empty($this->port))
 			{

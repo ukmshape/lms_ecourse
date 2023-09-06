@@ -109,7 +109,7 @@ class CI_DB_pdo_ibm_driver extends CI_DB_pdo_driver {
 			}
 			else
 			{
-				$this->dsn .= 'HOSTNAME='.(empty($this->hostname) ? '127.0.0.1;' : $this->hostname.';');
+				$this->dsn .= 'HOSTNAME='.(empty($this->hostname) ? ';' : $this->hostname.';');
 			}
 
 			if (isset($this->PORT))

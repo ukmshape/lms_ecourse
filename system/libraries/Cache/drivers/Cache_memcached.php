@@ -62,7 +62,7 @@ class CI_Cache_memcached extends CI_Driver {
 	 */
 	protected $_config = array(
 		'default' => array(
-			'host'		=> '127.0.0.1',
+			'host'		=> 'https://ecourse.ukm.my',
 			'port'		=> 11211,
 			'weight'	=> 1
 		)
