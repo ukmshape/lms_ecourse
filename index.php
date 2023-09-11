@@ -338,9 +338,10 @@ switch (ENVIRONMENT)
 			DIRECTORY_SEPARATOR.DIRECTORY_SEPARATOR
 		);
 	}
-		define('DOCPATH', $document_folder.DIRECTORY_SEPARATOR);
+	
+	define('DOCPATH', $document_folder.DIRECTORY_SEPARATOR);
 
-	define('STORAGEPATH', 'E:\ecourse\documents\\');
+	//define('STORAGEPATH', 'E:\ecourse\documents\\');
 
 	define('LMSPATH', 'https://ecourse-lms.ukm.my/');
 

@@ -93,7 +93,7 @@ class Carts extends CI_Controller {
         $echo =  base_url('/main/course_details/'.$this->input->post('kursusid'));
         echo "<script>alert('Course already in cart!');
                 window.location.href = '".$echo."'
-             </script>";
+              </script>";
       }
 
     //dbug($this->session->userdata());

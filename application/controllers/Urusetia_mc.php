@@ -8,32 +8,32 @@ class Urusetia_mc extends CI_Controller {
 
 	public function __construct() {
 
-      parent::__construct();
+		parent::__construct();
 			if(empty($this->session->userdata("session_ukmper")))
-	   	{
-	   		redirect(base_url()."main/signin",'refresh');
-	   	}
-      $this->load->model('auth_m');
+		{
+			redirect(base_url()."main/signin",'refresh');
+		}
+		$this->load->model('auth_m');
 
-	  	$this->load->model('urusetiamc_m');
-			$this->load->config('token');//load token odl dev
-			$this->url_odl = $this->config->item('url_odl');
-			$this->get_user_token =  $this->config->item('get_user_token');
-			$this->create_user_token =  $this->config->item('create_user_token');
-			$this->get_courseid_token = $this->config->item('get_courseid_token');
-			$this->manual_enrol_token = $this->config->item('manual_enrol_token');
-			$this->manual_unenrol_token = $this->config->item('manual_unenrol_token');
+		$this->load->model('urusetiamc_m');
+		$this->load->config('token');//load token odl dev
+		$this->url_odl = $this->config->item('url_odl');
+		$this->get_user_token =  $this->config->item('get_user_token');
+		$this->create_user_token =  $this->config->item('create_user_token');
+		$this->get_courseid_token = $this->config->item('get_courseid_token');
+		$this->manual_enrol_token = $this->config->item('manual_enrol_token');
+		$this->manual_unenrol_token = $this->config->item('manual_unenrol_token');
 
       //$this->output->enable_profiler(TRUE);
 
-			$this->ssltoken = array(
-			    "ssl"=>array(
-			        "verify_peer"=>false,
-			        "verify_peer_name"=>false,
-			    ),
-			);
+		$this->ssltoken = array(
+			"ssl"=>array(
+				"verify_peer"=>false,
+				"verify_peer_name"=>false,
+			),
+		);
 
-  	}
+	}
 
 	public function index()
 

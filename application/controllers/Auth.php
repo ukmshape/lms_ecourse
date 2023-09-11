@@ -8,9 +8,6 @@ class Auth extends CI_Controller
         $this->load->model('auth_m');
         $this->load->model('cart_m');
         //$this->output->enable_profiler(TRUE);
-        
-        //session_save_path(APPPATH."ci_session/");
-        session_start();
     }
     
     public function main_login()
@@ -68,7 +65,6 @@ class Auth extends CI_Controller
                   );
 
                   $this->session->set_userdata('session_ukmper', $arr);
-                  $_SESSION["session_ukmper"] = $arr;
                   $session_ukmper = $this->session->userdata('session_ukmper'); //dbug(); die();
                   //dbug($session_ukmper);
                   // skrin teknikal
